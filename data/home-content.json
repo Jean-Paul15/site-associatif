@@ -1,0 +1,24 @@
+{
+    "header": {
+      "logo_url": "https://evhlratcofwcllsjgggf.supabase.co/storage/v1/object/public/unircorn/flyers/1751292761898000.jpg",
+      "logo_alt": "Logo La maison de charlotte",
+      "menu_links": [
+        { "text": "QUI SOMMES-NOUS", "url": "/qui-sommes-nous" },
+        { "text": "NOS ACTIONS", "url": "/nos-actions" },
+        { "text": "JE M'INFORME", "url": "/je-m-informe" },
+        { "text": "J'AGIS", "url": "/j-agis" }
+      ],
+      "action_buttons": [
+        { "text": "DEVENIR BÉNÉVOLE", "url": "/devenir-benevole", "icon_url": "/icon-benevole.svg", "icon_alt": "Icône de bénévolat" },
+        { "text": "FAIRE UN DON", "url": "/faire-un-don", "icon_url": "/icon-don.svg", "icon_alt": "Icône de don" }
+      ]
+    },
+    "footer": {},
+    "hero_carousel": {},
+    "who_are_we_teaser": {},
+    "our_actions_teaser": {},
+    "how_to_act": {},
+    "newsletter": {},
+    "latest_news": {},
+    "social_media": {}
+  }

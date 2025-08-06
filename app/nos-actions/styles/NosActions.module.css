@@ -1,0 +1,489 @@
+/* Reset et base pour éviter les conflits */
+.nosActionsPage * {
+    box-sizing: border-box;
+  }
+  
+  .nosActionsPage {
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  
+  /* Header de la page */
+  .pageHeader {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #1f2937;
+    padding: 100px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .pageHeader::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 40%, rgba(16, 185, 129, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 50%);
+    opacity: 0.6;
+  }
+  
+  .pageHeader h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    margin: 0 0 24px 0;
+    letter-spacing: -0.03em;
+    position: relative;
+    z-index: 1;
+    color: #1f2937;
+  }
+  
+  .headerSubtitle {
+    font-size: 1.4rem;
+    font-weight: 400;
+    max-width: 800px;
+    margin: 0 auto;
+    opacity: 0.8;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+    color: #374151;
+  }
+  
+  /* Section Accompagner */
+  .accompagnerSection {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 80px 0;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+  }
+  
+  .accompagnerSection h2 {
+    color: #1f2937;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 40px 0;
+    letter-spacing: -0.01em;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .accompagnerSection h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #10B981, #059669);
+    border-radius: 2px;
+  }
+  
+  .accompagnerSection p {
+    max-width: 900px;
+    margin: 0 auto 24px;
+    color: #374151;
+    line-height: 1.8;
+    font-size: 1.15rem;
+    font-weight: 400;
+  }
+  
+  .italicText {
+    font-style: italic;
+    color: #6b7280 !important;
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin-bottom: 0;
+  }
+  
+  /* Section Vidéo */
+  .videoSection {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 80px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .videoSection::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: repeating-conic-gradient(
+      from 0deg at 50% 50%,
+      rgba(16, 185, 129, 0.15) 0deg,
+      rgba(16, 185, 129, 0.15) 60deg,
+      transparent 60deg,
+      transparent 120deg
+    );
+    animation: rotate 40s linear infinite;
+  }
+  
+  @keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .videoTitle {
+    color: #1f2937;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 50px 0;
+    letter-spacing: -0.01em;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .videoContainer {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    padding: 0 20px;
+  }
+  
+  .videoFrame {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+    background: rgba(0,0,0,0.9);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+  
+  .videoFrame::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    z-index: 1;
+    border-radius: 20px;
+  }
+  
+  .videoFrame iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    z-index: 2;
+  }
+  
+  /* Section Actions 2024 */
+  .actions2024 {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  }
+  
+  .actionsHeader {
+    background: linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%);
+    color: white;
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .actionsHeader::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 50%);
+  }
+  
+  .actionsHeader h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 0 0 40px 0;
+    letter-spacing: -0.02em;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .actionsHeader p {
+    max-width: 1000px;
+    margin: 0 auto 30px;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    font-weight: 400;
+    opacity: 0.95;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Actions List */
+  .actionsList {
+    padding: 80px 0;
+  }
+  
+  .actionCard {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    margin-bottom: 50px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 1px solid rgba(59, 130, 246, 0.1);
+    position: relative;
+  }
+  
+  .actionCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #3B82F6, #10B981);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .actionCard:hover::before {
+    opacity: 1;
+  }
+  
+  .actionCard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.2);
+  }
+  
+  .actionContent {
+    display: flex;
+    min-height: 220px;
+  }
+  
+  .actionText {
+    flex: 1;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #fafbff 0%, #f1f5ff 100%);
+    position: relative;
+  }
+  
+  .actionDate {
+    color: #10B981;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 4px 10px;
+    border-radius: 50px;
+    display: inline-block;
+    align-self: flex-start;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+  }
+  
+  .actionDescription {
+    color: #475569;
+    line-height: 1.6;
+    margin: 0 0 18px 0;
+    flex: 1;
+    font-size: 0.88rem;
+    font-weight: 400;
+  }
+  
+  .actionButton {
+    background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+    color: white;
+    padding: 8px 18px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.025em;
+    align-self: flex-start;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .actionButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+  }
+  
+  .actionButton:hover::before {
+    left: 100%;
+  }
+  
+  .actionButton:hover {
+    background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  .actionImage {
+    flex: 1;
+    min-height: 220px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .actionImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: saturate(1.1) contrast(1.05);
+  }
+  
+  .actionCard:hover .actionImage img {
+    transform: scale(1.05);
+    filter: saturate(1.2) contrast(1.1);
+  }
+  
+  /* Breadcrumb */
+  .breadcrumb {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 16px 0;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  
+  .breadcrumbTop {
+    padding: 20px 0 0 0;
+    background: transparent;
+  }
+  
+  .bottomBreadcrumb {
+    padding: 40px 0;
+    background: linear-gradient(to top, rgba(255,255,255,0.1), transparent);
+  }
+  
+  .breadcrumbHome {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    margin-left: 24px;
+    padding: 12px 20px;
+    border-radius: 50px;
+    background: rgba(59, 130, 246, 0.1);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+  
+  .breadcrumbHome:hover {
+    color: #3B82F6;
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.25);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .pageHeader h1 {
+      font-size: 2.8rem;
+    }
+  
+    .pageHeader {
+      padding: 60px 0;
+    }
+  
+    .actionContent {
+      flex-direction: column;
+    }
+  
+    .actionImage {
+      min-height: 160px;
+    }
+  
+    .actionText {
+      padding: 20px 18px;
+    }
+  
+    .actionsHeader h2 {
+      font-size: 2.2rem;
+    }
+  
+    .videoContainer {
+      margin: 0 10px;
+    }
+  
+    .container {
+      padding: 0 20px;
+    }
+  
+    .accompagnerSection h2,
+    .videoTitle {
+      font-size: 2rem;
+    }
+  
+    .videoTitle {
+      margin-bottom: 40px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .pageHeader h1 {
+      font-size: 2.2rem;
+    }
+  
+    .headerSubtitle {
+      font-size: 1.1rem;
+    }
+  
+    .actionText {
+      padding: 18px 15px;
+    }
+  
+    .actionsHeader h2 {
+      font-size: 1.8rem;
+    }
+  
+    .videoTitle {
+      font-size: 1.6rem;
+    }
+  }
