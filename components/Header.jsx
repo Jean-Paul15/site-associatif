@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
+import { Heart } from 'lucide-react';
 import homeContent from '../data/home-content.json';
 
 const Header = () => {
@@ -56,7 +57,7 @@ const Header = () => {
               href={actionButtonDon.url} 
               className="flex items-center space-x-2 bg-[#3B82F6] text-white rounded-full px-3 py-1.5 hover:bg-[#60A5FA] transition-colors duration-200"
             >
-              <span className="material-symbols-outlined text-sm">favorite</span>
+              <Heart size={16} />
               <span className="font-semibold text-xs uppercase tracking-wide">{actionButtonDon.text}</span>
             </Link>
           </div>
@@ -114,7 +115,7 @@ const Header = () => {
                   className="flex items-center justify-center space-x-2 bg-[#3B82F6] text-white rounded-full px-4 py-2 hover:bg-[#60A5FA] transition-colors duration-200"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  <span className="material-symbols-outlined text-base">favorite</span>
+                  <Heart size={16} />
                   <span className="font-semibold text-sm uppercase tracking-wide">{actionButtonDon.text}</span>
                 </Link>
               </div>

@@ -42,7 +42,7 @@
   }
   
   .pageHeader h1 {
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: 700;
     margin: 0 0 24px 0;
     letter-spacing: -0.03em;
@@ -75,7 +75,7 @@
   
   .accompagnerSection h2 {
     color: #1f2937;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     margin: 0 0 40px 0;
     letter-spacing: -0.01em;
@@ -147,7 +147,7 @@
   
   .videoTitle {
     color: #1f2937;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     margin: 0 0 50px 0;
     letter-spacing: -0.01em;
@@ -222,7 +222,7 @@
   }
   
   .actionsHeader h2 {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 700;
     text-align: center;
     margin: 0 0 40px 0;
@@ -426,7 +426,7 @@
   @media (max-width: 768px) {
     .pageHeader h1 {
       font-size: 2.8rem;
-    }
+    } /* Reduced to 2.8rem for better consistency on tablets */
   
     .pageHeader {
       padding: 60px 0;
@@ -445,13 +445,13 @@
     }
   
     .actionsHeader h2 {
-      font-size: 2.2rem;
+      font-size: 2rem;
     }
   
     .videoContainer {
       margin: 0 10px;
     }
-  
+
     .container {
       padding: 0 20px;
     }
@@ -468,7 +468,7 @@
   
   @media (max-width: 480px) {
     .pageHeader h1 {
-      font-size: 2.2rem;
+      font-size: 2rem;
     }
   
     .headerSubtitle {
@@ -480,10 +480,10 @@
     }
   
     .actionsHeader h2 {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
     }
   
     .videoTitle {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
     }
-  }
+  } /* Further reduced for smaller screens */

@@ -8,7 +8,7 @@ const actionCardsData = [
     description: "Créer des relations de confiance avec les personnes âgées isolées, même en milieu rural."
   },
   {
-    imageSrc: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=800&h=600&fit=crop",
+    imageSrc: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
     title: "ACTIVITÉS COLLECTIVES",
     description: "Organiser des moments de partage et de joie entre les générations."
   },

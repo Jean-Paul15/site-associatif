@@ -36,8 +36,8 @@ export default function FooterSection() {
             <ul className="space-y-2 text-sm text-gray-600">
               <li><Link href="/qui-sommes-nous" className="hover:underline">Qui sommes-nous</Link></li>
               <li><Link href="/nos-actions" className="hover:underline">Nos actions</Link></li>
-              <li><Link href="/nous-rejoindre" className="hover:underline">Nous rejoindre</Link></li>
-              <li><Link href="/contact" className="hover:underline">Contact</Link></li>
+              <li><Link href="/j-agis" className="hover:underline">J'agis</Link></li>
+              <li><Link href="/je-m-informe" className="hover:underline">Je m'informe</Link></li>
             </ul>
           </div>
 

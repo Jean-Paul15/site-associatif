@@ -7,7 +7,8 @@ const ArticleCard = ({
   image = "https://images.unsplash.com/photo-1544027993-37dbfe43562a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
   date = "30 juillet 2025",
   titre = "VACANCES POUR AÎNÉS ISOLÉS : UN SÉJOUR INOUBLIABLE POUR DIX PERSONNES ÂGÉES À L'ABBAYE DE LA PRÉE", // Example title, replace with actual data
-  description = "Cet été 2025, plus de 3 000 personnes âgées isolées partiront en vacances grâce à la..."
+  description = "Cet été 2025, plus de 3 000 personnes âgées isolées partiront en vacances grâce à la...",
+  link // Add link prop
 }) => {
   return (
     <div className="bg-gray-50 rounded-lg shadow-md overflow-hidden max-w-xs mx-auto transition-transform transform hover:-translate-y-1 hover:shadow-lg ">
@@ -37,10 +38,10 @@ const ArticleCard = ({
 
         {/* Bouton */}
         <div className="flex justify-end font-space-grotesk">
-          <button className="flex items-center gap-1 text-blue-600 text-xs font-medium hover:text-blue-800 transition-colors">
+          <a href={link} className="flex items-center gap-1 text-blue-600 text-xs font-medium hover:text-blue-800 transition-colors">
             LIRE LA SUITE {/* "Read more" button */}
             <ArrowRight size={12} />
-          </button>
+          </a>
         </div>
       </div>
     </div>

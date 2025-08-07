@@ -2,7 +2,6 @@
 'use client';
 import React from 'react';
 import styles from '../styles/NosActions.module.css';
-import Breadcrumb from './Breadcrumb';
 import ActionCard from './ActionCard'; // C'est ici que le composant est importé
 
 const ActionsListSection = ({ actions, currentYear }) => {
@@ -43,12 +42,6 @@ const ActionsListSection = ({ actions, currentYear }) => {
               imageAlt={action.imageAlt}
             />
           ))}
-        </div>
-      </div>
-
-      <div className={styles.bottomBreadcrumb}>
-        <div className={styles.container}>
-          <Breadcrumb />
         </div>
       </div>
     </section>

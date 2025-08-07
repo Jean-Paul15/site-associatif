@@ -1,18 +1,36 @@
 @import "tailwindcss";
 
+/* Variables CSS unifiées avec votre thème */
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* Variables de couleurs étendues */
+  --color-primary: #3b82f6;
+  --color-primary-hover: #1d4ed8;
+  --color-secondary: #64748b;
+  --color-success: #059669;
+  --color-warning: #d97706;
+  --color-error: #dc2626;
+  --color-surface: #ffffff;
+  --color-background: var(--background);
+  --color-text-primary: var(--foreground);
+  --color-text-secondary: #64748b;
+  
+  /* Variables utilitaires */
+  --border-radius: 0.5rem;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
-
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-space-grotesk);
 }
 
+/* Mode sombre désactivé - background toujours blanc */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #ffffff;
@@ -20,24 +38,50 @@
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: 'Space Grotesk', sans-serif;
+/* Configuration de base pour éviter les problèmes d'hydratation */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-h1, h2 {
-  font-family: 'Roboto', sans-serif;
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Prévention des erreurs d'hydratation */
+  height: 100%;
+
+body {
+  background: #ffffff !important;
+  color: var(--foreground);
+  font-family: var(--font-space-grotesk, 'Space Grotesk'), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  /* Éviter les décalages lors de l'hydratation */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typographie avec fallbacks sécurisés */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-space-grotesk, 'Space Grotesk'), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+  /* Éviter les décalages de rendu */
+  font-display: swap;
 }
 
 /* Global Styles pour la page Qui Sommes-Nous */
 .qui-sommes-nous {
-  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-space-grotesk, 'Space Grotesk'), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.6;
   color: #334155;
 }
 
-/* Animations communes */
+/* Animations communes avec respect des préférences utilisateur */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -60,7 +104,7 @@ h1, h2 {
   }
 }
 
-/* Utilitaires pour l'animation */
+/* Utilitaires pour l'animation avec préférences respectées */
 .animate-fade-in-up {
   animation: fadeInUp 0.8s ease-out forwards;
 }
@@ -75,9 +119,12 @@ section {
   overflow: hidden;
 }
 
-/* Container responsive */
+/* Container responsive amélioré */
 .container {
   width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
   padding-left: 1rem;
   padding-right: 1rem;
 }
@@ -96,27 +143,35 @@ section {
   }
 }
 
-/* Styles pour les boutons */
+/* Styles pour les boutons avec meilleure accessibilité */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0.75rem 1.5rem;
-  border-radius: 0.375rem;
+  border-radius: var(--border-radius);
   font-weight: 600;
   text-decoration: none;
   transition: all 0.3s ease;
   cursor: pointer;
   border: none;
   font-size: 0.875rem;
+  min-height: 44px; /* Accessibilité tactile */
+  position: relative;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
   color: white;
+  border: 2px solid transparent;
 }
 
-.btn-primary:hover {
+.btn-primary:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
 }
@@ -127,26 +182,33 @@ section {
   color: #374151;
 }
 
-.btn-outline:hover {
+.btn-outline:hover:not(:disabled) {
   background: #f9fafb;
   border-color: #9ca3af;
 }
 
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
 /* Styles pour les cartes */
 .card {
-  background: white;
+  background: var(--color-surface);
   border-radius: 0.75rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-md);
   transition: all 0.3s ease;
   overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-lg);
 }
 
-/* Styles pour les images */
+/* Styles pour les images avec optimisations */
 .img-overlay {
   position: relative;
   overflow: hidden;
@@ -160,12 +222,19 @@ section {
   pointer-events: none;
 }
 
+/* Images responsives par défaut */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 /* Styles pour le texte */
 .text-gradient {
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  color: var(--color-primary); /* Fallback pour les navigateurs non compatibles */
 }
 
 /* Media queries pour la responsive */
@@ -207,7 +276,7 @@ section {
   }
 }
 
-/* Styles pour l'accessibilité */
+/* Styles pour l'accessibilité et les préférences utilisateur */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -215,12 +284,80 @@ section {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-/* Focus visible pour l'accessibilité clavier */
+/* Amélioration du contraste pour l'accessibilité */
+@media (prefers-contrast: high) {
+  .btn-outline {
+    border-width: 3px;
+  }
+  
+  .card {
+    border-width: 2px;
+    border-color: #000;
+  }
+}
+
+/* Focus visible amélioré pour l'accessibilité clavier */
 .btn:focus-visible,
-a:focus-visible {
-  outline: 2px solid #3b82f6;
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
+  border-radius: var(--border-radius);
+}
+
+/* Skip link pour l'accessibilité */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Prévention des erreurs d'hydratation */
+.hydration-safe {
+  opacity: 1;
+  transform: none;
+}
+
+/* Utilitaires pour éviter les décalages de layout */
+.prevent-layout-shift {
+  content-visibility: auto;
+  contain-intrinsic-size: 200px;
+}
+
+/* Styles pour les formulaires */
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Amélioration des performances pour les grandes listes */
+.virtualized-list {
+  contain: layout style paint;
+}
+  /* Prévention des erreurs d'hydratation */
+  height: 100%;
 }

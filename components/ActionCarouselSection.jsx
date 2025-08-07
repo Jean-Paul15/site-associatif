@@ -11,7 +11,7 @@ const actionCardsData = [
     description: "La solidarité est le moteur de notre action. Avec votre soutien, vous nous permettez de sortir de leur isolement, de la pauvreté et de la rue de nombreuses personnes âgées."
   },
   {
-    imageSrc: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=800&h=600&fit=crop",
+    imageSrc: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
     icon: "hands",
     title: "ORGANISER UNE COLLECTE",
     description: "Mariage, naissance, anniversaire... Profitez de vos moments de vie pour soutenir votre engagement, votre famille à rejoindre votre engagement de lutte contre l'isolement des personnes âgées."
@@ -29,7 +29,7 @@ const actionCardsData = [
     description: "Votre entreprise peut faire prendre part aux changements sociétaux, découvrez nos projets et les différentes manières de vous y associer."
   },
   {
-    imageSrc: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=800&h=600&fit=crop",
+    imageSrc: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&h=600&fit=crop",
     icon: "hands",
     title: "S'ENGAGER AUTREMENT",
     description: "De nombreux autres moyens existent pour soutenir les actions des Petits Frères des Pauvres. Découvrez les moyens et notre l'engagement volontaire."
@@ -39,7 +39,7 @@ const actionCardsData = [
 // Composant pour une carte individuelle d'action
 const ActionCard = ({ imageSrc, icon, title, description }) => {
   return (
-    <div className="bg-white rounded-xl shadow-lg p-4 mx-2 flex-shrink-0 w-80">
+    <div className="bg-white rounded-xl shadow-lg p-4 mx-2 flex-shrink-0 w-80 sm:w-80">
       <img src={imageSrc} alt={title} className="w-full h-40 object-cover rounded-xl mb-4" />
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-bold uppercase" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{title}</h3>
@@ -67,8 +67,8 @@ const ActionCarouselSection = () => {
   };
 
   return (
-    <section className="py-20 px-4" style={{ background: 'linear-gradient(to top, #ffbf42 20%, white 20%)', borderBottomRightRadius: '2rem' }}>
-      <div className="max-w-7xl mx-auto">
+    <section className="py-20 px-4 action-carousel" style={{ background: 'linear-gradient(to top, #ffbf42 20%, white 20%)', borderBottomRightRadius: '2rem' }}>
+      <div className="max-w-7xl mx-auto"> 
         {/* En-tête de la section */}
         <div className="mb-10 flex flex-col md:flex-row justify-between items-center">
           <div className="md:w-2/3">
@@ -98,7 +98,7 @@ const ActionCarouselSection = () => {
         <div className="overflow-hidden">
           <div
             className="flex transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(-${currentIndex * 21}rem)` }}
+            style={{ transform: `translateX(-${currentIndex * 21 }rem)` }} 
           >
             {actionCardsData.map((card, index) => (
               <ActionCard key={index} {...card} />
