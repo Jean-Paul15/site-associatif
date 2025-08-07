@@ -26,14 +26,14 @@ const actionCardsData = [
 
 const ActionCard = ({ imageSrc, title, description }) => {
   return (
-    <a href="#" className="action-card">
+    <div className="action-card"> {/* Still a div to prevent click navigation */}
       <img src={imageSrc} alt={title} className="action-image" />
       <div className="action-overlay" />
       <div className="action-content">
         <h3 className="action-title">{title}</h3>
         <p className="action-description">{description}</p>
       </div>
-    </a>
+    </div>
   );
 };
 
@@ -74,10 +74,11 @@ const NosActionsSection = () => {
           border-radius: 12px 12px 40px 12px;
           box-shadow: 0 4px 10px rgba(0,0,0,0.1);
           transition: transform 0.3s ease;
+          cursor: default; /* Ensure cursor is default, not pointer */
         }
 
         .action-card:hover {
-          transform: scaleX(1.02);
+          transform: scaleX(1.02); /* Re-added the scale animation */
         }
 
         .action-image {

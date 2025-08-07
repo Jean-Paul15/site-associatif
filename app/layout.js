@@ -73,7 +73,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fr">
+    <html lang="fr" suppressHydrationWarning>
       <head>
         {/* Ajout du lien vers Material Symbols pour affichage immédiat des icônes */}
         <link

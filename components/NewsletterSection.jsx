@@ -1,14 +1,88 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react'; // Import useRef
+import { supabase } from '../lib/supabaseClient';
+
+const isValidEmail = (email) => {
+  // Regex for basic email validation
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailRegex.test(email);
+};
 
 function NewsletterSection() {
     const [email, setEmail] = useState('');
+    const [message, setMessage] = useState(''); // To display success or error messages
+    const [messageType, setMessageType] = useState(''); // 'success' or 'error'
+    const timerRef = useRef(null); // Ref to store the timer ID
 
-    const handleSubmit = (e) => {
+    // Clear message after 30 seconds
+    useEffect(() => {
+        if (message) {
+            // Clear any existing timer
+            if (timerRef.current) {
+                clearTimeout(timerRef.current);
+            }
+            timerRef.current = setTimeout(() => {
+                setMessage('');
+                setMessageType('');
+            }, 30000); // 30 seconds
+        }
+
+        // Cleanup function to clear the timer when the component unmounts or message changes
+        return () => {
+            if (timerRef.current) {
+                clearTimeout(timerRef.current);
+            }
+        };
+    }, [message]); // Re-run effect when message changes
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Logic for form submission (e.g., API call)
-        console.log("Subscription with email:", email);
+        setMessage(''); // Clear previous messages immediately
+        setMessageType('');
+
+        // Clear any active timer if a new submission occurs before the previous one expired
+        if (timerRef.current) {
+            clearTimeout(timerRef.current);
+        }
+
+        if (!email) {
+            setMessage('Veuillez entrer une adresse email.');
+            setMessageType('error');
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            setMessage('Veuillez entrer une adresse email valide.');
+            setMessageType('error');
+            return;
+        }
+
+        try {
+            const { data, error } = await supabase
+                .from('newsletter_subscribers')
+                .insert([{ email: email }])
+                .select();
+
+            if (error) {
+                if (error.code === '23505') { // Unique violation code for PostgreSQL
+                    setMessage('Cette adresse e-mail est déjà abonnée.');
+                    setMessageType('error');
+                } else {
+                    console.error('Erreur lors de l\'abonnement:', error.message);
+                    setMessage('Erreur lors de l\'abonnement. Veuillez réessayer.');
+                    setMessageType('error');
+                }
+            } else {
+                setMessage('Merci pour votre abonnement !');
+                setMessageType('success');
+                setEmail(''); // Clear email input on success
+            }
+        } catch (err) {
+            console.error('Erreur inattendue:', err.message);
+            setMessage('Une erreur inattendue est survenue.');
+            setMessageType('error');
+        }
     };
 
     return (
@@ -241,6 +315,25 @@ function NewsletterSection() {
             color: #1f2937;
             transform: translateY(-1px);
           }
+
+          /* Message styling */
+          .message {
+            margin-top: 1rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+          }
+          .message.success {
+            background-color: #d1fae5; /* Green-100 */
+            color: #065f46; /* Green-800 */
+            border: 1px solid #34d399; /* Green-400 */
+          }
+          .message.error {
+            background-color: #fee2e2; /* Red-100 */
+            color: #991b1b; /* Red-800 */
+            border: 1px solid #ef4444; /* Red-400 */
+          }
         `}
             </style>
             <div className="newsletter-container">
@@ -268,6 +361,11 @@ function NewsletterSection() {
                                 </svg>
                             </button>
                         </div>
+                        {message && (
+                            <p className={`message ${messageType}`}>
+                                {message}
+                            </p>
+                        )}
                         <p className="info-text">
                             Ces renseignements feront l'objet d'un traitement informatisé. Vous disposez d'un droit d'accès, de rectification, de suppression des données vous concernant.
                             <a href="#" className="info-link">Plus d'informations</a>.
