@@ -10,8 +10,8 @@ const truncateDescription = (description, maxLength = 80) => {
   return description.substring(0, maxLength) + '...';
 };
 
-const NewsSection = () => {
-  const [newsItems, setNewsItems] = useState([]);
+const NewsSection = ({ initialNewsItems }) => {
+  const [newsItems, setNewsItems] = useState(initialNewsItems);
   const [error, setError] = useState(null);
   const [windowWidth, setWindowWidth] = useState(0);
 
@@ -20,7 +20,6 @@ const NewsSection = () => {
       setWindowWidth(window.innerWidth);
     };
 
-    // Set initial width
     setWindowWidth(window.innerWidth);
 
     window.addEventListener('resize', handleResize);
@@ -28,30 +27,42 @@ const NewsSection = () => {
   }, []);
 
   useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        const limit = windowWidth >= 1024 ? 6 : 4; // 6 for full HD (>=1024px), 4 for small screens
-        const { data, error: supabaseError } = await supabase
-          .from('articles')
-          .select('*')
-          .eq('is_published', true)
-          .order('published_date', { ascending: false })
-          .limit(limit);
-
-        if (supabaseError) {
-          throw supabaseError;
+    const channel = supabase
+      .channel('news_feed')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'articles' },
+        (payload) => {
+          setNewsItems((currentNewsItems) => {
+            if (payload.eventType === 'INSERT') {
+              // Add new item if it's published
+              if (payload.new.is_published) {
+                // Ensure no duplicates based on ID or slug if available
+                if (!currentNewsItems.some(item => item.id === payload.new.id || item.slug === payload.new.slug)) {
+                  return [payload.new, ...currentNewsItems]
+                    .sort((a, b) => new Date(b.published_date) - new Date(a.published_date));
+                }
+              }
+            } else if (payload.eventType === 'UPDATE') {
+              return currentNewsItems.map((item) =>
+                item.id === payload.old.id ? (payload.new.is_published ? payload.new : null) : item
+              ).filter(Boolean).sort((a, b) => new Date(b.published_date) - new Date(a.published_date));
+            } else if (payload.eventType === 'DELETE') {
+              return currentNewsItems.filter((item) => item.id !== payload.old.id);
+            }
+            return currentNewsItems;
+          });
         }
-        setNewsItems(data);
-      } catch (err) {
-        console.error('Erreur lors du chargement des actualités:', err.message);
-        setError('Impossible de charger les actualités pour le moment.');
-      }
-    };
+      )
+      .subscribe();
 
-    if (windowWidth > 0) { // Only fetch once windowWidth is initialized
-      fetchNews();
-    }
-  }, [windowWidth]); // Re-fetch when windowWidth changes
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []); // Empty dependency array means this runs once on mount and cleans up on unmount
+
+  // Filter and limit news items based on windowWidth after any real-time updates
+  const displayedNewsItems = newsItems.filter(item => item.is_published).slice(0, windowWidth >= 1024 ? 6 : 4);
 
   if (error) {
     return <section className="bg-white py-16 border-gray-200 text-center text-red-500">{error}</section>;
@@ -67,8 +78,8 @@ const NewsSection = () => {
           </a>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 space-y-4 md:space-y-0 max-w-5xl mx-auto">
-          {newsItems.length > 0 ? (
-            newsItems.map((item, index) => (
+          {displayedNewsItems.length > 0 ? (
+            displayedNewsItems.map((item, index) => (
               <div
                 key={item.id || index}
                 className="rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 bg-white"
