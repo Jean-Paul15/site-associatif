@@ -2,7 +2,12 @@
 
 # Fonction pour obtenir le chemin du script actuel
 function Get-ScriptDirectory {
-    Split-Path -Parent $MyInvocation.MyCommand.Definition
+    if ($PSScriptRoot) {
+        return $PSScriptRoot
+    }
+    else {
+        return Split-Path -Parent $MyInvocation.MyCommand.Definition
+    }
 }
 
 # Naviguer vers le répertoire du projet (le parent du répertoire où se trouve ce script si le script est à la racine du projet)

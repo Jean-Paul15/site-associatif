@@ -17,7 +17,6 @@ export default function FooterSection() {
           <div>
             {/* Logo prévu ici */}
             <div className="mb-4">
-              {/* <img src="/logo-charlotte.png" alt="Logo La Maison de Charlotte" className="h-10" /> */}
               <h3 className="text-xl font-bold text-blue-800">La Maison de Charlotte</h3>
             </div>
             <p className="text-sm text-gray-600 flex items-center mb-2">

@@ -6,37 +6,37 @@ const OriginSection = () => {
     <section className="origin-section">
       <div className="container">
         <div className="logo-container">
-          <img src="/path/to/your/logo.png" alt="Logo La Maison de Charlotte" className="logo" />
+          <img src="/logo.png" alt="Logo La Maison de Charlotte" className="logo" />
         </div>
         <h2 className="section-title">L'ORIGINE DE LA MAISON DE CHARLOTTE</h2>
-        
+
         <div className="content">
           <p className="paragraph">
             Armand Marquiset, fondateur de La Maison de Charlotte, était un homme en quête de sens. C'est à
             l'aube de la Seconde Guerre mondiale, après un long cheminement personnel et spirituel, qu'il décide de
             se mettre pleinement au service des Autres, puis en 1946 de créer l'Association. <strong>Son projet : mobiliser de
-            jeunes hommes au service des plus pauvres. Et à la sortie de la guerre, les plus pauvres étaient les
-            personnes âgées, manquant de tout.</strong>
+              jeunes hommes au service des plus pauvres. Et à la sortie de la guerre, les plus pauvres étaient les
+              personnes âgées, manquant de tout.</strong>
           </p>
-          
+
           <p className="paragraph">
             Le nom de l'Association porte le sens de sa motivation première: des hommes au service des pauvres.
             C'est dans ce contexte que les valeurs fondatrices de La Maison de Charlotte ont pris leurs racines : <strong>fraternité, fidélité, le sens de la
-            fête et de la joie, le beau, l'audace, les fleurs avant le pain, des liens jusqu'au bout de la vie.</strong>
+              fête et de la joie, le beau, l'audace, les fleurs avant le pain, des liens jusqu'au bout de la vie.</strong>
           </p>
-          
+
           <p className="paragraph">
             Très vite, son souhait a été d'élever les La Maison de Charlotte au rang d'une congrégation religieuse :
             servir l'homme fragile c'était, pour lui, servir Dieu. Un souhait jamais réalisé. En effet, l'Église lui préconise
             de rester laïc afin de mobiliser plus largement les citoyens.
           </p>
-          
+
           <p className="highlight">
             La Maison de Charlotte est sans appartenance politique ni confessionnelle.
           </p>
         </div>
       </div>
-      
+
       <style jsx>{`
         .origin-section {
           background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);

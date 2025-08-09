@@ -26,6 +26,16 @@ export const metadata = {
     address: false,
     telephone: false,
   },
+  icons: {
+    icon: [
+      { url: "/logo.png", sizes: "32x32", type: "image/png" },
+      { url: "/logo.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [
+      { url: "/logo.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/logo.png",
+  },
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
   alternates: {
     canonical: "/",
@@ -36,11 +46,20 @@ export const metadata = {
     title: "La Maison de Charlotte",
     description: "Site web de l'association La Maison de Charlotte",
     siteName: "La Maison de Charlotte",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Logo La Maison de Charlotte",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "La Maison de Charlotte",
     description: "Site web de l'association La Maison de Charlotte",
+    images: ["/logo.png"],
   },
   robots: {
     index: true,

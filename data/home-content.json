@@ -1,24 +1,46 @@
 {
-    "header": {
-      "logo_url": "https://images.unsplash.com/photo-1544027993-37dbfe43562a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-      "logo_alt": "Logo La maison de charlotte",
-      "menu_links": [
-        { "text": "QUI SOMMES-NOUS", "url": "/qui-sommes-nous" },
-        { "text": "NOS ACTIONS", "url": "/nos-actions" },
-        { "text": "JE M'INFORME", "url": "/je-m-informe" },
-        { "text": "J'AGIS", "url": "/j-agis" }
-      ],
-      "action_buttons": [
-        { "text": "DEVENIR BÉNÉVOLE", "url": "/devenir-benevole", "icon_url": "/icon-benevole.svg", "icon_alt": "Icône de bénévolat" },
-        { "text": "FAIRE UN DON", "url": "/faire-un-don", "icon_url": "/icon-don.svg", "icon_alt": "Icône de don" }
-      ]
-    },
-    "footer": {},
-    "hero_carousel": {},
-    "who_are_we_teaser": {},
-    "our_actions_teaser": {},
-    "how_to_act": {},
-    "newsletter": {},
-    "latest_news": {},
-    "social_media": {}
-  }
+  "header": {
+    "logo_url": "/logo.png",
+    "logo_alt": "Logo La maison de charlotte",
+    "menu_links": [
+      {
+        "text": "QUI SOMMES-NOUS",
+        "url": "/qui-sommes-nous"
+      },
+      {
+        "text": "NOS ACTIONS",
+        "url": "/nos-actions"
+      },
+      {
+        "text": "JE M'INFORME",
+        "url": "/je-m-informe"
+      },
+      {
+        "text": "J'AGIS",
+        "url": "/j-agis"
+      }
+    ],
+    "action_buttons": [
+      {
+        "text": "DEVENIR BÉNÉVOLE",
+        "url": "/devenir-benevole",
+        "icon_url": "/icon-benevole.svg",
+        "icon_alt": "Icône de bénévolat"
+      },
+      {
+        "text": "FAIRE UN DON",
+        "url": "/faire-un-don",
+        "icon_url": "/icon-don.svg",
+        "icon_alt": "Icône de don"
+      }
+    ]
+  },
+  "footer": {},
+  "hero_carousel": {},
+  "who_are_we_teaser": {},
+  "our_actions_teaser": {},
+  "how_to_act": {},
+  "newsletter": {},
+  "latest_news": {},
+  "social_media": {}
+}
