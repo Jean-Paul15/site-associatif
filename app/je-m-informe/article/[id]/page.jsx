@@ -55,7 +55,7 @@ const ArticlePage = async ({ params }) => {
                   <img
                     src={article.image_url}
                     alt={article.title}
-                    className="w-full h-48 sm:h-64 lg:h-80 object-cover rounded-lg shadow-md mb-6"
+                    className="w-full h-24 sm:h-28 lg:h-32 object-cover rounded-lg shadow-md mb-6"
                   />
                 )}
                 {article.published_date && (
