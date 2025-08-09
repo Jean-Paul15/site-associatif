@@ -5,9 +5,9 @@ import { ArrowRight } from 'lucide-react';
 
 const ArticleCard = ({
   image = "https://images.unsplash.com/photo-1544027993-37dbfe43562a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-  date = "30 juillet 2025",
-  titre = "VACANCES POUR AÎNÉS ISOLÉS : UN SÉJOUR INOUBLIABLE POUR DIX PERSONNES ÂGÉES À L'ABBAYE DE LA PRÉE",
-  description = "Cet été 2025, plus de 3 000 personnes âgées isolées partiront en vacances grâce à la...",
+  date = "Date non disponible",
+  titre = "Titre de l'article",
+  description = "Description de l'article non disponible...",
   link
 }) => {
   return (
