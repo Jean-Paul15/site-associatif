@@ -1,5 +1,6 @@
 // NosActionsPage.jsx
 import React from 'react';
+import { Metadata } from 'next';
 import styles from './styles/NosActions.module.css';
 
 // Importez les nouveaux composants de section
@@ -10,10 +11,27 @@ import ActionsListSection from './components/ActionsListSection';
 import Header from '@/components/Header';
 import FooterSection from '@/components/FooterSection';
 
+export const metadata = {
+  title: "Nos actions - Accompagnement des personnes âgées",
+  description: "Découvrez nos actions concrètes pour lutter contre l'isolement des personnes âgées : visites à domicile, accompagnement médical, activités collectives, aide d'urgence. 30 maisons et 400 équipes mobilisées.",
+  keywords: [
+    "actions personnes âgées",
+    "accompagnement domicile seniors",
+    "visite personnes âgées isolées",
+    "aide urgence personnes âgées",
+    "activités seniors",
+    "équipes bénévoles personnes âgées"
+  ],
+  openGraph: {
+    title: "Nos actions - La Maison de Charlotte",
+    description: "400 équipes d'action, 30 maisons, des milliers de visites : découvrez comment nous luttons contre l'isolement des personnes âgées.",
+  },
+};
+
 const NosActionsPage = () => {
   // YouTube video URL (ID only)
   const videoId = "dQw4w9WgXcQ";
-  
+
   // Dynamic current year
   const currentYear = new Date().getFullYear();
 
@@ -31,8 +49,8 @@ const NosActionsPage = () => {
     },
     {
       month: "FÉVRIER",
-      year: "2024", 
-      title: "Action Février 2024", 
+      year: "2024",
+      title: "Action Février 2024",
       description: "Les équipes de La Maison de Charlotte se mobilisent pour apporter des réponses adaptées aux nouveaux besoins des personnes âgées, poursuivre un accompagnement de qualité, mais également pour sensibiliser et inviter les citoyens à combattre le fléau de l'isolement social.",
       buttonText: "DÉCOUVRIR L'ACTION",
       buttonLink: "/actions/fevrier-2024",
@@ -42,13 +60,13 @@ const NosActionsPage = () => {
   ];
 
   return (
-      <><Header /><div className={styles.nosActionsPage}>
+    <><Header /><div className={styles.nosActionsPage}>
       <PageHeaderSection />
       <AccompagnerSection />
       <VideoSection videoUrl={videoId} />
       <ActionsListSection actions={actions} currentYear={currentYear} />
     </div>
-    <FooterSection/>
+      <FooterSection />
     </>
   );
 };

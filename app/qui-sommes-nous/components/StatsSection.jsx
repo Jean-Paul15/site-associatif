@@ -1,11 +1,12 @@
 "use client";
 import React from 'react';
+import CountUp from './CountUp';
 
 const StatsSection = () => {
   const stats = [
-    { number: "26 190", label: "PERSONNES AIDÉES" },
+    { number: "26190", label: "PERSONNES AIDÉES" },
     { number: "400", label: "ÉQUIPES D'ACTION" },
-    { number: "14 500", label: "BÉNÉVOLES ENGAGÉS" },
+    { number: "14500", label: "BÉNÉVOLES ENGAGÉS" },
     { number: "30", label: "MAISONS" }
   ];
 
@@ -16,13 +17,21 @@ const StatsSection = () => {
         <div className="stats-grid">
           {stats.map((stat, index) => (
             <div key={index} className="stat-item">
-              <p className="stat-number">{stat.number}</p>
+              <p className="stat-number">
+                <CountUp
+                  end={stat.number}
+                  duration={2500}
+                  prefix="+"
+                  separator=" "
+                  className="animated-number"
+                />
+              </p>
               <p className="stat-label">{stat.label}</p>
             </div>
           ))}
         </div>
       </div>
-      
+
       <style jsx>{`
         .stats-section {
           background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);

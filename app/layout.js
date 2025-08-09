@@ -10,17 +10,33 @@ const spaceGrotesk = Space_Grotesk({
   preload: true,
 });
 
-// Métadonnées SEO
+// Métadonnées SEO optimisées pour l'aide aux personnes âgées
 export const metadata = {
   title: {
-    default: "La Maison de Charlotte",
+    default: "La Maison de Charlotte - Association d'aide et accompagnement aux personnes âgées",
     template: "%s | La Maison de Charlotte",
   },
-  description: "Site web de l'association La Maison de Charlotte - Accompagnement et soutien aux familles",
-  keywords: ["association", "Charlotte", "soutien", "familles"],
-  authors: [{ name: "La Maison de Charlotte" }],
+  description: "La Maison de Charlotte est une association d'utilité publique dédiée à l'accompagnement et au soutien des personnes âgées. Nous luttons contre l'isolement et favorisons un vieillissement digne à travers nos programmes d'aide, de soins et d'accompagnement.",
+  keywords: [
+    "association personnes âgées",
+    "La Maison de Charlotte",
+    "aide personnes âgées",
+    "accompagnement seniors",
+    "soins personnes âgées",
+    "lutte isolement",
+    "vieillissement digne",
+    "ONG personnes âgées",
+    "action sociale seniors",
+    "bénévolat personnes âgées",
+    "solidarité seniors",
+    "association caritative personnes âgées",
+    "aide humanitaire seniors"
+  ],
+  authors: [{ name: "La Maison de Charlotte", url: "https://lamaisondecharlotte.com" }],
   creator: "La Maison de Charlotte",
   publisher: "La Maison de Charlotte",
+  category: "Association, Action sociale, Solidarité",
+  classification: "Association d'utilité publique",
   formatDetection: {
     email: false,
     address: false,
@@ -43,8 +59,8 @@ export const metadata = {
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    title: "La Maison de Charlotte",
-    description: "Site web de l'association La Maison de Charlotte",
+    title: "La Maison de Charlotte - Association d'aide aux personnes âgées",
+    description: "Association d'utilité publique dédiée à l'accompagnement des personnes âgées. Lutte contre l'isolement et soutien pour un vieillissement digne.",
     siteName: "La Maison de Charlotte",
     images: [
       {
@@ -57,9 +73,10 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "La Maison de Charlotte",
-    description: "Site web de l'association La Maison de Charlotte",
+    title: "La Maison de Charlotte - Association d'aide aux personnes âgées",
+    description: "Association d'utilité publique dédiée à l'accompagnement des personnes âgées. Lutte contre l'isolement et soutien pour un vieillissement digne.",
     images: ["/logo.png"],
+    creator: "@lamaisondecharlotte",
   },
   robots: {
     index: true,
@@ -98,6 +115,46 @@ export default function RootLayout({ children }) {
         <link
           href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
           rel="stylesheet" />
+
+        {/* Données structurées JSON-LD pour le SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "NGO",
+              "name": "La Maison de Charlotte",
+              "alternateName": "Association La Maison de Charlotte",
+              "description": "Association d'utilité publique dédiée à l'accompagnement et au soutien des personnes âgées. Nous luttons contre l'isolement et favorisons un vieillissement digne.",
+              "url": "https://lamaisondecharlotte.com",
+              "logo": "https://lamaisondecharlotte.com/logo.png",
+              "image": "https://lamaisondecharlotte.com/logo.png",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "France",
+                "addressCountry": "FR"
+              },
+              "areaServed": {
+                "@type": "Country",
+                "name": "France"
+              },
+              "knowsAbout": [
+                "Aide aux personnes âgées",
+                "Accompagnement seniors",
+                "Lutte contre l'isolement",
+                "Vieillissement digne",
+                "Soins gériatriques",
+                "Action caritative seniors"
+              ],
+              "sameAs": [
+                "https://www.facebook.com/lamaisondecharlotte",
+                "https://www.instagram.com/lamaisondecharlotte"
+              ],
+              "foundingDate": "2020",
+              "nonprofitStatus": "NonprofitType"
+            })
+          }}
+        />
       </head>
       <body
         className={`${spaceGrotesk.variable} font-sans antialiased bg-white text-gray-900 selection:bg-blue-100`}

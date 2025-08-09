@@ -6,7 +6,7 @@ import FooterSection from '../../../../components/FooterSection';
 import { supabase } from '../../../../lib/supabaseClient';
 
 const ArticlePage = async ({ params }) => {
-  const { id: slug } = params; // Rename id to slug for clarity
+  const { id: slug } = await params; // Rename id to slug for clarity
 
   let article = null;
   let error = null;
@@ -38,42 +38,60 @@ const ArticlePage = async ({ params }) => {
   return (
     <>
       <Header />
-      <main className="article-page-main" style={{ padding: '40px 0', background: '#f9fafb' }}>
-        <div className="container mx-auto px-4 py-8" style={{ maxWidth: '900px' }}>
-          <Link href="/je-m-informe" className="flex items-center text-blue-600 hover:text-blue-800 transition-colors mb-8" style={{ textDecoration: 'none', fontSize: '1rem', fontWeight: '500' }}>
+      <main className="article-page-main bg-gray-50 py-8 sm:py-12">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+          <Link href="/je-m-informe" className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors mb-6 sm:mb-8 text-sm sm:text-base font-medium">
             <ArrowLeft size={20} className="mr-2" />
             Retour aux actualités
           </Link>
 
-          <div className="article-header">
-            <h1 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#1f2937' }}>{article.title}</h1>
-            {article.image_url && (
-              <img
-                src={article.image_url}
-                alt={article.title}
-                className="w-full h-64 md:h-80 object-cover rounded-lg shadow-md mb-8"
-                style={{ maxHeight: '400px', objectFit: 'cover' }}
-              />
-            )}
-            {article.published_date && (
-                <p className="text-gray-500 text-sm mb-4">
+          <article className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="p-6 sm:p-8 lg:p-12">
+              <header className="article-header mb-8">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 text-gray-900 leading-tight break-words hyphens-auto">
+                  {article.title}
+                </h1>
+                {article.image_url && (
+                  <img
+                    src={article.image_url}
+                    alt={article.title}
+                    className="w-full h-48 sm:h-64 lg:h-80 object-cover rounded-lg shadow-md mb-6"
+                  />
+                )}
+                {article.published_date && (
+                  <p className="text-gray-500 text-sm sm:text-base mb-4">
                     Publié le: {new Date(article.published_date).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
-                </p>
-            )}
-          </div>
-          
-          <div className="article-content text-gray-700 leading-relaxed" style={{ fontSize: '1.1rem' }}>
-            {/* Display the full content of the article */}
-            {article.content && (
-              <div dangerouslySetInnerHTML={{ __html: article.content }} />
-            )}
-            {/* Fallback to description if content is not available */}
-            {!article.content && article.description && (
-              <p style={{ marginBottom: '20px' }}>
-                {article.description}
-              </p>
-            )}
-          </div>
+                  </p>
+                )}
+              </header>
+
+              <div className="article-content prose prose-sm sm:prose lg:prose-lg max-w-none">
+                {/* Display the full content of the article with responsive text */}
+                {article.content && (
+                  <div
+                    className="text-gray-700 leading-relaxed text-sm sm:text-base lg:text-lg break-words overflow-wrap-anywhere"
+                    dangerouslySetInnerHTML={{ __html: article.content }}
+                    style={{
+                      wordBreak: 'break-word',
+                      overflowWrap: 'break-word',
+                      hyphens: 'auto'
+                    }}
+                  />
+                )}
+                {/* Fallback to description if content is not available */}
+                {!article.content && article.description && (
+                  <p className="text-gray-700 leading-relaxed text-sm sm:text-base lg:text-lg mb-6 break-words overflow-wrap-anywhere"
+                    style={{
+                      wordBreak: 'break-word',
+                      overflowWrap: 'break-word',
+                      hyphens: 'auto'
+                    }}>
+                    {article.description}
+                  </p>
+                )}
+              </div>
+            </div>
+          </article>
         </div>
       </main>
       <FooterSection />

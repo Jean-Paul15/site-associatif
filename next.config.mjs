@@ -1,14 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-        domains: [
-          'evhlratcofwcllsjgggf.supabase.co',  // Domaine Supabase pour les images externes
-          'images.unsplash.com',
-        ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'evhlratcofwcllsjgggf.supabase.co',
+        port: '',
+        pathname: '/**',
       },
-  i18n: {
-    locales: ['fr'],
-    defaultLocale: 'fr',
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
 };
 
