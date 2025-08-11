@@ -63,7 +63,7 @@ export default function FooterSection() {
           <div>
             <h4 className="text-lg font-semibold text-blue-800 mb-4">Soutenir notre cause</h4>
             <Link
-              href="/faire-un-don"
+              href="/formulaire?type=don"
               className="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl shadow-md hover:bg-blue-700 transition"
             >
               Faire un don

@@ -1,9 +1,9 @@
 "use client";
 
 import React from 'react';
-import Header from '@/components/Header';
-import FooterSection from '@/components/FooterSection';
-import NewsletterSection from '@/components/NewsletterSection';
+import Header from '../../components/Header';
+import FooterSection from '../../components/FooterSection';
+import NewsletterSection from '../../components/NewsletterSection';
 import { Heart, User, Umbrella, Users, HandHeart, AlertCircle, Home } from 'lucide-react';
 
 // Simple component for explaining donation uses

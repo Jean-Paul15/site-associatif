@@ -13,19 +13,24 @@
     "@fortawesome/react-fontawesome": "^0.2.3",
     "@supabase/supabase-js": "^2.54.0",
     "autoprefixer": "^10.4.21",
+    "libphonenumber-js": "^1.12.10",
     "lucide-react": "^0.536.0",
     "next": "15.4.5",
     "react": "19.1.0",
+    "react-country-flag": "^3.1.0",
     "react-dom": "19.1.0",
     "react-icons": "^5.5.0",
+    "react-phone-number-input": "^3.4.12",
+    "react-select": "^5.10.2",
     "react-youtube": "^10.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.1.11",
+    "@types/react": "19.1.9",
     "eslint": "^9",
     "eslint-config-next": "15.4.5",
-    "tailwindcss": "^4",
-    "supabase": "^2.31.8"
+    "supabase": "^2.31.8",
+    "tailwindcss": "^4"
   }
 }

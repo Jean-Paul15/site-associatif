@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomLoadingAnimation from '@/components/CustomLoadingAnimation';
+import CustomLoadingAnimation from '../../components/CustomLoadingAnimation';
 
 const Loading = () => {
   return <CustomLoadingAnimation />;

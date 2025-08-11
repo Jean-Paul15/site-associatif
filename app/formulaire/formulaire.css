@@ -1,0 +1,100 @@
+/* Styles pour le composant de saisie téléphone */
+.phone-input .PhoneInputCountrySelect {
+    border: 1px solid #d1d5db;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    padding: 0.75rem;
+}
+
+.phone-input .PhoneInputInput {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    border-left: none;
+    transition: all 0.2s;
+}
+
+.phone-input .PhoneInputInput:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #3b82f6;
+    border-color: transparent;
+}
+
+.phone-input.phone-error .PhoneInputCountrySelect {
+    border-color: #ef4444;
+}
+
+.phone-input.phone-error .PhoneInputInput {
+    border-color: #ef4444;
+}
+
+.phone-input .PhoneInputCountrySelectArrow {
+    color: #6b7280;
+}
+
+.phone-input .PhoneInputCountryIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* Styles pour React Select */
+.react-select .react-select__control {
+    min-height: 48px;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    box-shadow: none;
+    padding: 0 8px;
+}
+
+.react-select .react-select__control:hover {
+    border-color: #9ca3af;
+}
+
+.react-select .react-select__control--is-focused {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.react-select-error .react-select__control {
+    border-color: #ef4444;
+}
+
+.react-select .react-select__placeholder {
+    color: #9ca3af;
+}
+
+.react-select .react-select__single-value {
+    color: #374151;
+}
+
+.react-select .react-select__menu {
+    z-index: 10;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+}
+
+.react-select .react-select__option {
+    padding: 8px 12px;
+}
+
+.react-select .react-select__option--is-focused {
+    background-color: #f3f4f6;
+}
+
+.react-select .react-select__option--is-selected {
+    background-color: #3b82f6;
+    color: white;
+}
+
+/* Responsive pour le téléphone */
+@media (max-width: 640px) {
+    .phone-input .PhoneInputInput {
+        font-size: 1rem;
+    }
+
+    .react-select .react-select__control {
+        min-height: 44px;
+    }
+}

@@ -37,15 +37,23 @@ const actionCardsData = [
 ];
 
 // Composant pour une carte individuelle d'action
-const ActionCard = ({ imageSrc, icon, title, description }) => {
+const ActionCard = ({ imageSrc, icon, title, description, actionType }) => {
+  const getActionUrl = () => {
+    if (title.includes('DONNER') || title.includes('COLLECTE') || title.includes('PATRIMOINE') || title.includes('MÉCÉNAT')) {
+      return '/formulaire?type=don';
+    } else {
+      return '/formulaire?type=engagement';
+    }
+  };
+
   return (
     <div className="bg-white rounded-xl shadow-lg p-4 mx-2 flex-shrink-0 w-80 sm:w-80">
       <img src={imageSrc} alt={title} className="w-full h-40 object-cover rounded-xl mb-4" />
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-bold uppercase" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{title}</h3>
-        <a href="#" className="bg-[#e24a73] text-white p-2 rounded-full transition-transform hover:scale-110">
+        <a href={getActionUrl()} className="bg-[#e24a73] text-white p-2 rounded-full transition-transform hover:scale-110">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
           </svg>
         </a>
       </div>
@@ -68,7 +76,7 @@ const ActionCarouselSection = () => {
 
   return (
     <section className="py-20 px-4 action-carousel" style={{ background: 'linear-gradient(to top, #ffbf42 20%, white 20%)', borderBottomRightRadius: '2rem' }}>
-      <div className="max-w-7xl mx-auto"> 
+      <div className="max-w-7xl mx-auto">
         {/* En-tête de la section */}
         <div className="mb-10 flex flex-col md:flex-row justify-between items-center">
           <div className="md:w-2/3">
@@ -83,12 +91,12 @@ const ActionCarouselSection = () => {
           <div className="flex space-x-4 mt-6 md:mt-0">
             <button onClick={prevSlide} className="bg-white p-3 rounded-full shadow-md transition-colors hover:bg-gray-100">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#e24a73]">
- <path d="m15 18-6-6 6-6"/>
+                <path d="m15 18-6-6 6-6" />
               </svg>
             </button>
             <button onClick={nextSlide} className="bg-white p-3 rounded-full shadow-md transition-colors hover:bg-gray-100">
- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#e24a73]">
-                <path d="m9 18 6-6-6-6"/>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#e24a73]">
+                <path d="m9 18 6-6-6-6" />
               </svg>
             </button>
           </div>
@@ -98,7 +106,7 @@ const ActionCarouselSection = () => {
         <div className="overflow-hidden">
           <div
             className="flex transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(-${currentIndex * 21 }rem)` }} 
+            style={{ transform: `translateX(-${currentIndex * 21}rem)` }}
           >
             {actionCardsData.map((card, index) => (
               <ActionCard key={index} {...card} />

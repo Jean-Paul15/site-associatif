@@ -22,14 +22,14 @@
     ],
     "action_buttons": [
       {
-        "text": "DEVENIR BÉNÉVOLE",
-        "url": "/devenir-benevole",
+        "text": "S'ENGAGER",
+        "url": "/formulaire?type=engagement",
         "icon_url": "/icon-benevole.svg",
         "icon_alt": "Icône de bénévolat"
       },
       {
         "text": "FAIRE UN DON",
-        "url": "/faire-un-don",
+        "url": "/formulaire?type=don",
         "icon_url": "/icon-don.svg",
         "icon_alt": "Icône de don"
       }

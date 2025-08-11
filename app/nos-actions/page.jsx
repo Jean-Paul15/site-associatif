@@ -8,8 +8,8 @@ import PageHeaderSection from './components/PageHeaderSection';
 import AccompagnerSection from './components/AccompagnerSection';
 import VideoSection from './components/VideoSection';
 import ActionsListSection from './components/ActionsListSection';
-import Header from '@/components/Header';
-import FooterSection from '@/components/FooterSection';
+import Header from '../../components/Header';
+import FooterSection from '../../components/FooterSection';
 
 export const metadata = {
   title: "Nos actions - Accompagnement des personnes âgées",
