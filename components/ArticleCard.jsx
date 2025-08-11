@@ -16,7 +16,7 @@ const ArticleCard = ({
         <img
           src={image}
           alt={titre}
-          className="w-full h-20 object-cover transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-18 object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute top-2 left-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-medium px-2.5 py-1 rounded-full shadow-lg">
           {date}

@@ -27,39 +27,72 @@ const NewsSection = ({ initialNewsItems }) => {
   }, []);
 
   useEffect(() => {
+    // Système de temps réel pour TOUS les utilisateurs (pas de polling)
     const channel = supabase
-      .channel('news_feed')
+      .channel('news_feed_public', {
+        config: {
+          presence: {
+            key: 'news_updates'
+          }
+        }
+      })
       .on(
         'postgres_changes',
-        { event: '*', schema: 'public', table: 'articles' },
+        {
+          event: '*',
+          schema: 'public',
+          table: 'articles'
+        },
         (payload) => {
+          console.log('Changement temps réel détecté pour tous:', payload);
+
+          // Mise à jour intelligente selon le type d'événement
           setNewsItems((currentNewsItems) => {
             if (payload.eventType === 'INSERT') {
-              // Add new item if it's published
+              // Ajouter le nouvel article s'il est publié
               if (payload.new.is_published) {
-                // Ensure no duplicates based on ID or slug if available
-                if (!currentNewsItems.some(item => item.id === payload.new.id || item.slug === payload.new.slug)) {
-                  return [payload.new, ...currentNewsItems]
+                // Vérifier qu'il n'existe pas déjà
+                if (!currentNewsItems.some(item => item.id === payload.new.id)) {
+                  const updatedItems = [payload.new, ...currentNewsItems]
                     .sort((a, b) => new Date(b.published_date) - new Date(a.published_date));
+                  console.log('Nouvel article ajouté:', payload.new.title);
+                  return updatedItems;
                 }
               }
             } else if (payload.eventType === 'UPDATE') {
-              return currentNewsItems.map((item) =>
-                item.id === payload.old.id ? (payload.new.is_published ? payload.new : null) : item
-              ).filter(Boolean).sort((a, b) => new Date(b.published_date) - new Date(a.published_date));
+              // Mettre à jour l'article existant
+              const updatedItems = currentNewsItems.map((item) => {
+                if (item.id === payload.old.id) {
+                  return payload.new.is_published ? payload.new : null;
+                }
+                return item;
+              }).filter(Boolean).sort((a, b) => new Date(b.published_date) - new Date(a.published_date));
+              console.log('Article mis à jour:', payload.new.title);
+              return updatedItems;
             } else if (payload.eventType === 'DELETE') {
-              return currentNewsItems.filter((item) => item.id !== payload.old.id);
+              // Supprimer l'article
+              const updatedItems = currentNewsItems.filter((item) => item.id !== payload.old.id);
+              console.log('Article supprimé:', payload.old.id);
+              return updatedItems;
             }
             return currentNewsItems;
           });
         }
       )
-      .subscribe();
+      .subscribe((status) => {
+        console.log('Statut de l\'abonnement temps réel pour tous:', status);
+        if (status === 'SUBSCRIBED') {
+          console.log('✅ Temps réel activé pour tous les utilisateurs');
+        } else if (status === 'CHANNEL_ERROR') {
+          console.log('❌ Erreur du canal temps réel');
+        }
+      });
 
     return () => {
+      console.log('Nettoyage du canal temps réel');
       supabase.removeChannel(channel);
     };
-  }, []); // Empty dependency array means this runs once on mount and cleans up on unmount
+  }, []);
 
   // Filter and limit news items based on windowWidth after any real-time updates
   const displayedNewsItems = newsItems.filter(item => item.is_published).slice(0, windowWidth >= 1024 ? 6 : 4);
