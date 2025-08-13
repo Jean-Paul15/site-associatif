@@ -11,6 +11,7 @@ const CountUp = ({
     const [count, setCount] = useState(0);
     const [isVisible, setIsVisible] = useState(false);
     const [hasAnimated, setHasAnimated] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
     const elementRef = useRef(null);
 
     // Parse the end value to handle formatted numbers like "26 190"
@@ -24,6 +25,21 @@ const CountUp = ({
     };
 
     const endValue = parseNumber(end.toString());
+
+    // Détecter si l'utilisateur est sur mobile
+    useEffect(() => {
+        const checkIfMobile = () => {
+            const userAgent = navigator.userAgent;
+            const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+            const isSmallScreen = window.innerWidth <= 768;
+            setIsMobile(isMobileDevice || isSmallScreen);
+        };
+
+        checkIfMobile();
+        window.addEventListener('resize', checkIfMobile);
+
+        return () => window.removeEventListener('resize', checkIfMobile);
+    }, []);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -45,6 +61,12 @@ const CountUp = ({
 
     useEffect(() => {
         if (!isVisible) return;
+
+        // Si mobile, afficher directement le résultat final sans animation
+        if (isMobile) {
+            setCount(endValue);
+            return;
+        }
 
         let startTime;
         let animationFrame;
@@ -71,7 +93,7 @@ const CountUp = ({
                 cancelAnimationFrame(animationFrame);
             }
         };
-    }, [isVisible, endValue, duration]);
+    }, [isVisible, endValue, duration, isMobile]);
 
     return (
         <span ref={elementRef} className={className}>

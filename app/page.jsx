@@ -11,6 +11,12 @@ import QuiSommesNousSection from "../components/QuiSommesNousSection";
 import FooterSection from "../components/FooterSection";
 import { getNewsItems } from '../lib/getNews'; // Importation de la fonction serveur
 
+// Forcer la revalidation toutes les 60 secondes
+export const revalidate = 60;
+
+// Désactiver le cache statique pour cette page
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   title: "Accueil - Association d'aide aux personnes âgées",
   description: "La Maison de Charlotte accompagne les personnes âgées dans leur quotidien. Découvrez nos actions, nos 400 équipes bénévoles et nos 26 190 personnes aidées. Rejoignez notre mission contre l'isolement.",
@@ -28,8 +34,13 @@ export const metadata = {
 }
 
 export default async function HomePage() {
-  // Récupération des données initiales côté serveur
+  // Récupération des données initiales côté serveur avec cache bust
+  const timestamp = Date.now();
+  console.log(`Loading news items at ${new Date().toISOString()}`);
+
   const initialNewsItems = await getNewsItems(6); // Par exemple, récupérer 6 articles initialement
+
+  console.log(`Loaded ${initialNewsItems?.length || 0} initial news items`);
 
   return (
     <div>

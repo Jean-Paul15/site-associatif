@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import ArticleCard from './ArticleCard';
 import { supabase } from '../lib/supabaseClient';
+import { logDataFreshness } from '../lib/diagnostics';
 
 const truncateDescription = (description, maxLength = 80) => {
   if (!description) return '';
@@ -11,9 +12,18 @@ const truncateDescription = (description, maxLength = 80) => {
 };
 
 const NewsSection = ({ initialNewsItems }) => {
-  const [newsItems, setNewsItems] = useState(initialNewsItems);
+  // Assurer que initialNewsItems est un tableau valide
+  const validInitialNewsItems = Array.isArray(initialNewsItems) ? initialNewsItems : [];
+
+  const [newsItems, setNewsItems] = useState(validInitialNewsItems);
   const [error, setError] = useState(null);
   const [windowWidth, setWindowWidth] = useState(0);
+
+  // Log pour débugger
+  useEffect(() => {
+    console.log('NewsSection initialized with:', validInitialNewsItems.length, 'items');
+    logDataFreshness(validInitialNewsItems, 'NewsSection initial props');
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -93,6 +103,37 @@ const NewsSection = ({ initialNewsItems }) => {
       supabase.removeChannel(channel);
     };
   }, []);
+
+  // Effet pour récupérer les données si elles sont vides au montage
+  useEffect(() => {
+    if (newsItems.length === 0) {
+      console.log('Aucune actualité trouvée, tentative de récupération...');
+      const fetchFallbackNews = async () => {
+        try {
+          const { data, error } = await supabase
+            .from('articles')
+            .select('*')
+            .eq('is_published', true)
+            .order('published_date', { ascending: false })
+            .limit(6);
+
+          if (error) {
+            throw error;
+          }
+
+          if (data && data.length > 0) {
+            console.log('Actualités récupérées en fallback:', data.length);
+            setNewsItems(data);
+          }
+        } catch (error) {
+          console.error('Erreur lors de la récupération des actualités en fallback:', error);
+          setError('Impossible de charger les actualités pour le moment.');
+        }
+      };
+
+      fetchFallbackNews();
+    }
+  }, [newsItems.length]);
 
   // Filter and limit news items based on windowWidth after any real-time updates
   const displayedNewsItems = newsItems.filter(item => item.is_published).slice(0, windowWidth >= 1024 ? 6 : 4);
