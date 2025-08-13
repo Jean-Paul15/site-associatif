@@ -52,11 +52,15 @@ const OriginSection = () => {
         
         .logo-container {
           margin-bottom: 2rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
         
         .logo {
-          max-height: 80px;
+          max-height: 120px;
           width: auto;
+          height: auto;
         }
         
         .section-title {

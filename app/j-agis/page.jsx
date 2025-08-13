@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 import Header from '../../components/Header';
 import FooterSection from '../../components/FooterSection';
 import NewsletterSection from '../../components/NewsletterSection';
@@ -186,10 +187,10 @@ const JAgisPage = () => {
                     <p className="mb-6 text-sm leading-relaxed text-gray-700">
                       Votre générosité est le moteur de notre action. Avec votre soutien vous nous permettez de sortir de leur isolement, de la pauvreté et parfois même de la rue .
                     </p>
-                    <a href="#" className="flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300 rounded-full bg-blue-600 hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5">
+                    <Link href="/formulaire?type=don" className="flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300 rounded-full bg-blue-600 hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5">
                       <Heart size={16} className="mr-2" />
                       DONNER MAINTENANT
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </section>
@@ -209,10 +210,10 @@ const JAgisPage = () => {
                     <p className="mb-6 text-sm leading-relaxed text-gray-700">
                       Vous souhaitez vous engager dans une action de proximité ? Devenez bénévole et rejoignez l'une des 380 équipes locales La Maison de Charlotte.
                     </p>
-                    <a href="#" className="flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300 rounded-full bg-blue-600 hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5">
+                    <Link href="/formulaire?type=engagement" className="flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300 rounded-full bg-blue-600 hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5">
                       <User size={16} className="mr-2" />
                       JE DEVIENS BÉNÉVOLE
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </section>
