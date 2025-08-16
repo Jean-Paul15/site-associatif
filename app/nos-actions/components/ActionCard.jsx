@@ -1,25 +1,44 @@
 // components/ActionCard.jsx
 'use client';
 import React from 'react';
+import Image from 'next/image';
 import styles from '../styles/NosActions.module.css';
 
-const ActionCard = ({ month, year, title, description, buttonText, buttonLink, imageUrl, imageAlt }) => {
+const ActionCard = ({ action }) => {
+  // Format de la date : MOIS ANNÉE (ex: JANVIER 2025)
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const month = date.toLocaleDateString('fr-FR', { month: 'long' }).toUpperCase();
+    const year = date.getFullYear();
+    return `${month} ${year}`;
+  };
+
   return (
     <div className={styles.actionCard}>
       <div className={styles.actionContent}>
         <div className={styles.actionText}>
           <div className={styles.actionDate}>
-            {month} {year}
+            {formatDate(action.created_at)}
           </div>
           <p className={styles.actionDescription}>
-            {description}
+            {action.full_content}
           </p>
-          <a href={buttonLink} className={styles.actionButton}>
-            {buttonText}
-          </a>
         </div>
         <div className={styles.actionImage}>
-          <img src={imageUrl} alt={imageAlt} />
+          {action.image_url && (
+            <Image
+              src={action.image_url}
+              alt={`Action ${formatDate(action.created_at)}`}
+              width={400}
+              height={300}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'fill'
+              }}
+              priority={false}
+            />
+          )}
         </div>
       </div>
     </div>
