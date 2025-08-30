@@ -41,12 +41,13 @@ const nextConfig = {
     },
     optimizePackageImports: ['lucide-react', 'react-icons'],
     optimizeCss: true,
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
+  },
+  // Configuration Turbopack (stable maintenant)
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
       },
     },
   },

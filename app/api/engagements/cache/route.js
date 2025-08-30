@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { refreshEngagementsCache, getEngagementsCacheInfo } from '../../../lib/getEngagements';
+import { refreshEngagementsCache, getEngagementsCacheInfo } from '../../../../lib/getEngagements';
 
 /**
  * API Route pour gérer le cache des engagements

@@ -1,6 +1,5 @@
 // app/page.jsx
 
-import { Metadata } from 'next'
 import Header from '../components/Header';
 import CarouselSection from "../components/CarouselSection";
 import NewsletterSection from "../components/NewsletterSection";

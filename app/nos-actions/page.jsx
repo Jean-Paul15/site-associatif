@@ -1,6 +1,5 @@
 // NosActionsPage.jsx
 import React from 'react';
-import { Metadata } from 'next';
 import styles from './styles/NosActions.module.css';
 import { getActions } from '../../lib/getActions';
 
