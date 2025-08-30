@@ -10,6 +10,7 @@ import NosActionsSection from "../components/NosActionsSection";
 import QuiSommesNousSection from "../components/QuiSommesNousSection";
 import FooterSection from "../components/FooterSection";
 import { getNewsItems } from '../lib/getNews'; // Importation de la fonction serveur
+import { getEngagements } from '../lib/getEngagements'; // Importation pour les engagements
 
 // Forcer la revalidation toutes les 60 secondes
 export const revalidate = 60;
@@ -39,8 +40,10 @@ export default async function HomePage() {
   console.log(`Loading news items at ${new Date().toISOString()}`);
 
   const initialNewsItems = await getNewsItems(6); // Par exemple, récupérer 6 articles initialement
+  const engagements = await getEngagements(); // Charger les engagements
 
   console.log(`Loaded ${initialNewsItems?.length || 0} initial news items`);
+  console.log(`Loaded ${engagements?.length || 0} engagements`);
 
   return (
     <div>
@@ -50,7 +53,7 @@ export default async function HomePage() {
       <NewsSection initialNewsItems={initialNewsItems} />
       <NewsletterSection />
       <ActionCarouselSection />
-      <NosActionsSection />
+      <NosActionsSection engagements={engagements} />
       <QuiSommesNousSection />
       <FooterSection />
     </div>

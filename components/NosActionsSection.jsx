@@ -1,29 +1,6 @@
 "use client";
 import React from "react";
 
-const actionCardsData = [
-  {
-    imageSrc: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    title: "APPORTER UNE PRÉSENCE",
-    description: "Créer des relations de confiance avec les personnes âgées isolées, même en milieu rural."
-  },
-  {
-    imageSrc: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    title: "ACTIVITÉS COLLECTIVES",
-    description: "Organiser des moments de partage et de joie entre les générations."
-  },
-  {
-    imageSrc: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&h=600&fit=crop",
-    title: "AGIR CONTRE LES VULNÉRABILITÉS",
-    description: "Accompagner face aux difficultés liées à l'âge ou à la précarité."
-  },
-  {
-    imageSrc: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&h=600&fit=crop",
-    title: "SENSIBILISER LA SOCIÉTÉ",
-    description: "Faire évoluer le regard de la société sur le vieillissement."
-  }
-];
-
 const ActionCard = ({ imageSrc, title, description }) => {
   return (
     <div className="action-card"> {/* Still a div to prevent click navigation */}
@@ -37,7 +14,7 @@ const ActionCard = ({ imageSrc, title, description }) => {
   );
 };
 
-const NosActionsSection = () => {
+const NosActionsSection = ({ engagements = [] }) => {
   return (
     <section className="nos-actions-section">
       <style>{`
@@ -128,14 +105,33 @@ const NosActionsSection = () => {
         .action-card:hover .action-description {
           opacity: 1;
         }
+
+        .no-engagements {
+          grid-column: 1 / -1;
+          text-align: center;
+          padding: 40px 20px;
+          color: #666;
+          font-style: italic;
+        }
       `}</style>
 
       <div className="nos-actions-container">
-        <h2 className="nos-actions-heading">NOS ACTIONS</h2>
+        <h2 className="nos-actions-heading">NOS ENGAGEMENTS</h2>
         <div className="nos-actions-grid">
-          {actionCardsData.map((card, index) => (
-            <ActionCard key={index} {...card} />
-          ))}
+          {engagements && engagements.length > 0 ? (
+            engagements.map((engagement) => (
+              <ActionCard
+                key={engagement.id}
+                imageSrc={engagement.image_url}
+                title={engagement.title}
+                description={engagement.description}
+              />
+            ))
+          ) : (
+            <div className="no-engagements">
+              <p>Aucun engagement disponible pour le moment.</p>
+            </div>
+          )}
         </div>
       </div>
     </section>
