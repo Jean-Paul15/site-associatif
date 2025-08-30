@@ -37,16 +37,80 @@ const nextConfig = {
   experimental: {
     staleTimes: {
       dynamic: 0, // Pas de cache pour les routes dynamiques
-      static: 180, // Cache statique de 3 minutes maximum
+      static: 300, // Cache statique de 5 minutes pour la prod
     },
-    optimizePackageImports: ['lucide-react'],
+    optimizePackageImports: ['lucide-react', 'react-icons'],
+    optimizeCss: true,
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
   // Optimisations de performance
   compress: true,
   poweredByHeader: false,
-  // Headers pour éviter le cache navigateur agressif
+  // Optimisation des bundles
+  webpack: (config, { dev, isServer }) => {
+    // Optimisations en production uniquement
+    if (!dev && !isServer) {
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        cacheGroups: {
+          framework: {
+            chunks: 'all',
+            name: 'framework',
+            test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types|use-subscription)[\\/]/,
+            priority: 40,
+            enforce: true,
+          },
+          lib: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'lib',
+            priority: 30,
+            minChunks: 1,
+            reuseExistingChunk: true,
+          },
+          commons: {
+            name: 'commons',
+            minChunks: 2,
+            priority: 20,
+            reuseExistingChunk: true,
+          },
+        },
+      };
+    }
+    return config;
+  },
+  // Headers pour éviter le cache navigateur agressif et optimiser les performances
   async headers() {
     return [
+      {
+        source: '/(.*)',
+        headers: [
+          // Performance headers
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on'
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff'
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'origin-when-cross-origin'
+          },
+          // Preload hints
+          {
+            key: 'Link',
+            value: '<https://fonts.gstatic.com>; rel=preconnect; crossorigin'
+          }
+        ],
+      },
       {
         source: '/',
         headers: [
@@ -61,7 +125,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, s-maxage=180, stale-while-revalidate=60',
+            value: 'public, s-maxage=300, stale-while-revalidate=60',
           },
         ],
       },

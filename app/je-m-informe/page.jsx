@@ -4,35 +4,12 @@ import Link from 'next/link';
 import { Home } from 'lucide-react';
 import Header from '../../components/Header';
 import FooterSection from '../../components/FooterSection';
-import PaginatedArticlesList from './components/PaginatedArticlesList';
+import EnhancedArticlesList from './components/EnhancedArticlesList';
 import PerformanceMonitor from '../../components/PerformanceMonitor';
 import { getInitialArticles, getTotalArticlesCount } from '../../lib/getArticles';
-import { supabase } from '../../lib/supabaseClient';
-
-// Fonction pour charger les articles d'une page spécifique
-async function loadArticlesForPage(offset, limit) {
-  try {
-    const { data, error } = await supabase
-      .from('articles')
-      .select('*')
-      .eq('is_published', true)
-      .order('published_date', { ascending: false })
-      .range(offset, offset + limit - 1);
-
-    if (error) {
-      console.error('Error loading articles for page:', error);
-      return [];
-    }
-
-    return data || [];
-  } catch (error) {
-    console.error('Unexpected error loading articles:', error);
-    return [];
-  }
-}
 
 // Configuration pour optimiser les performances
-export const revalidate = 300; // Revalider toutes les 5 minutes
+export const revalidate = 180; // Revalider toutes les 3 minutes (plus fréquent pour la pagination dynamique)
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
@@ -71,22 +48,13 @@ const ArticlesLoadingSkeleton = () => (
 );
 
 const JeMInformePage = async ({ searchParams }) => {
-  // Lire la page courante depuis les searchParams
-  const currentPage = parseInt((await searchParams)?.page || '1');
-
-  // Déterminer le nombre d'articles à charger (9 par défaut pour PC)
-  const articlesPerPage = 9;
-  const offset = (currentPage - 1) * articlesPerPage;
-
-  // Chargement parallèle et optimisé des données
+  // Chargement optimisé des données initiales
   const [initialArticles, totalCount] = await Promise.all([
-    currentPage === 1
-      ? getInitialArticles(articlesPerPage) // Page 1: utiliser les articles optimisés
-      : loadArticlesForPage(offset, articlesPerPage), // Autres pages: charger directement
+    getInitialArticles(9), // Charger les 9 premiers articles par défaut
     getTotalArticlesCount()
   ]);
 
-  console.log(`📰 Loaded ${initialArticles.length} articles for page ${currentPage}, ${totalCount} total`);
+  console.log(`📰 Loaded ${initialArticles.length} initial articles, ${totalCount} total`);
 
   return (
     <>
@@ -124,9 +92,9 @@ const JeMInformePage = async ({ searchParams }) => {
             )}
           </div>
 
-          {/* Liste d'articles avec pagination */}
+          {/* Liste d'articles avec pagination puissante */}
           <Suspense fallback={<ArticlesLoadingSkeleton />}>
-            <PaginatedArticlesList
+            <EnhancedArticlesList
               initialArticles={initialArticles}
               totalCount={totalCount}
             />

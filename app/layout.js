@@ -1,13 +1,15 @@
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import PerformanceOptimizer from "../components/PerformanceOptimizer";
 
-// Chargement de la police Space Grotesk
+// Chargement optimisé de la police Space Grotesk
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
   weight: ["400", "600", "700"],
   display: "swap",
   preload: true,
+  fallback: ["system-ui", "-apple-system", "sans-serif"],
 });
 
 // Métadonnées SEO optimisées pour l'aide aux personnes âgées
@@ -169,11 +171,13 @@ export default function RootLayout({ children }) {
         </a>
 
         {/* Conteneur principal */}
-        <div id="root-wrapper" className="min-h-screen flex flex-col">
-          <main id="main-content" className="flex-1">
-            {children}
-          </main>
-        </div>
+        <PerformanceOptimizer>
+          <div id="root-wrapper" className="min-h-screen flex flex-col">
+            <main id="main-content" className="flex-1">
+              {children}
+            </main>
+          </div>
+        </PerformanceOptimizer>
       </body>
     </html>
   );

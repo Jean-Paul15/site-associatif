@@ -5,7 +5,7 @@ console.log('🔍 AUDIT LIGHTHOUSE - SITE ASSOCIATIF');
 console.log('=====================================\n');
 
 // Configuration
-const LOCAL_URL = 'http://localhost:3000';
+const LOCAL_URL = 'http://localhost:3001';
 const REPORTS_DIR = 'lighthouse-reports';
 
 // Pages à tester

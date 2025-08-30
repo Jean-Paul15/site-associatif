@@ -8,8 +8,11 @@
     "start": "next start",
     "lint": "next lint",
     "lighthouse": "node lighthouse-audit-simple.js",
-    "lighthouse:quick": "npx lighthouse http://localhost:3000 --output=html --output-path=lighthouse-reports/quick-audit --chrome-flags=\"--headless\" --quiet",
-    "perf:audit": "npm run lighthouse"
+    "lighthouse:quick": "npx lighthouse http://localhost:3001 --output=html --output-path=lighthouse-reports/quick-audit --chrome-flags=\"--headless\" --quiet",
+    "perf:audit": "npm run lighthouse",
+    "perf:test": "node scripts/performance-test.js",
+    "perf:optimize": "npm run build && npm run perf:test",
+    "cache:clear": "node scripts/clear-engagements-cache.js"
   },
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^7.0.0",
