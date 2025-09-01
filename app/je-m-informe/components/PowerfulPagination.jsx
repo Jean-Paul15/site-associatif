@@ -48,7 +48,7 @@ const PowerfulPagination = ({
             const urlDateFilter = params.get('dateFilter') || 'all';
             const urlSearch = params.get('search') || '';
             const urlView = params.get('view') || initialViewMode;
-            
+
             setSortBy(urlSort);
             setDateFilter(urlDateFilter);
             setSearchTerm(urlSearch);

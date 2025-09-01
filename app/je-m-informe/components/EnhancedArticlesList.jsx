@@ -95,7 +95,7 @@ const EnhancedArticlesList = ({ initialArticles = [], totalCount = 0 }) => {
         if (filters.search && filters.search.trim()) {
             const searchTerm = filters.search.trim();
             console.log('🔍 Recherche appliquée:', searchTerm);
-            
+
             // Recherche dans le titre, description courte et contenu avec ilike (insensible à la casse)
             query = query.or(`title.ilike.%${searchTerm}%,short_description.ilike.%${searchTerm}%,content.ilike.%${searchTerm}%`);
         }
@@ -133,8 +133,8 @@ const EnhancedArticlesList = ({ initialArticles = [], totalCount = 0 }) => {
             }
 
             if (startDate) {
-                console.log('📅 Filtre de date appliqué:', { 
-                    filter: filters.date, 
+                console.log('📅 Filtre de date appliqué:', {
+                    filter: filters.date,
                     startDate: startDate.toISOString(),
                     now: now.toISOString()
                 });
@@ -168,10 +168,10 @@ const EnhancedArticlesList = ({ initialArticles = [], totalCount = 0 }) => {
         setError(null);
 
         try {
-            console.log('🔄 Chargement articles:', { 
-                page, 
-                itemsPerPage, 
-                sortBy, 
+            console.log('🔄 Chargement articles:', {
+                page,
+                itemsPerPage,
+                sortBy,
                 filters: filters,
                 timestamp: new Date().toISOString()
             });
@@ -187,8 +187,8 @@ const EnhancedArticlesList = ({ initialArticles = [], totalCount = 0 }) => {
                 throw supabaseError;
             }
 
-            console.log('✅ Articles chargés:', { 
-                count: data?.length || 0, 
+            console.log('✅ Articles chargés:', {
+                count: data?.length || 0,
                 totalCount: count,
                 firstTitle: data?.[0]?.title,
                 sortApplied: sortBy
