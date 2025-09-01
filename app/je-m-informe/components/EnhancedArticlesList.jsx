@@ -49,6 +49,7 @@ const EnhancedArticlesList = ({ initialArticles = [], totalCount = 0 }) => {
     const [sortBy, setSortBy] = useState('date_desc');
     const [filters, setFilters] = useState({ date: 'all', search: '', category: '' });
     const [viewMode, setViewMode] = useState('grid');
+    const [actualTotalCount, setActualTotalCount] = useState(totalCount);
 
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -90,49 +91,68 @@ const EnhancedArticlesList = ({ initialArticles = [], totalCount = 0 }) => {
             .select('*', { count: 'exact' })
             .eq('is_published', true);
 
-        // Filtres de recherche
-        if (filters.search) {
-            query = query.or(`title.ilike.%${filters.search}%,short_description.ilike.%${filters.search}%,content.ilike.%${filters.search}%`);
+        // Filtres de recherche améliorés
+        if (filters.search && filters.search.trim()) {
+            const searchTerm = filters.search.trim();
+            console.log('🔍 Recherche appliquée:', searchTerm);
+            
+            // Recherche dans le titre, description courte et contenu avec ilike (insensible à la casse)
+            query = query.or(`title.ilike.%${searchTerm}%,short_description.ilike.%${searchTerm}%,content.ilike.%${searchTerm}%`);
         }
 
-        // Filtres de date
+        // Filtres de date améliorés
         if (filters.date !== 'all') {
             const now = new Date();
             let startDate;
 
             switch (filters.date) {
                 case 'today':
-                    startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                    // Début de la journée
+                    startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
                     break;
                 case 'week':
-                    startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+                    // Début de la semaine (lundi)
+                    const dayOfWeek = now.getDay();
+                    const daysToSubtract = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // Lundi = 0
+                    startDate = new Date(now.getTime() - (daysToSubtract * 24 * 60 * 60 * 1000));
+                    startDate.setHours(0, 0, 0, 0);
                     break;
                 case 'month':
-                    startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+                    // Premier jour du mois
+                    startDate = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0);
                     break;
                 case 'quarter':
+                    // Premier jour du trimestre
                     const quarterMonth = Math.floor(now.getMonth() / 3) * 3;
-                    startDate = new Date(now.getFullYear(), quarterMonth, 1);
+                    startDate = new Date(now.getFullYear(), quarterMonth, 1, 0, 0, 0);
                     break;
                 case 'year':
-                    startDate = new Date(now.getFullYear(), 0, 1);
+                    // Premier jour de l'année
+                    startDate = new Date(now.getFullYear(), 0, 1, 0, 0, 0);
                     break;
             }
 
             if (startDate) {
+                console.log('📅 Filtre de date appliqué:', { 
+                    filter: filters.date, 
+                    startDate: startDate.toISOString(),
+                    now: now.toISOString()
+                });
                 query = query.gte('published_date', startDate.toISOString());
             }
         }
 
-        // Tri
+        // Tri avec gestion des caractères français
         switch (sortBy) {
             case 'date_asc':
                 query = query.order('published_date', { ascending: true });
                 break;
             case 'title_asc':
+                // Tri alphabétique croissant en ignorant les accents
                 query = query.order('title', { ascending: true });
                 break;
             case 'title_desc':
+                // Tri alphabétique décroissant en ignorant les accents
                 query = query.order('title', { ascending: false });
                 break;
             default: // date_desc
@@ -148,6 +168,14 @@ const EnhancedArticlesList = ({ initialArticles = [], totalCount = 0 }) => {
         setError(null);
 
         try {
+            console.log('🔄 Chargement articles:', { 
+                page, 
+                itemsPerPage, 
+                sortBy, 
+                filters: filters,
+                timestamp: new Date().toISOString()
+            });
+
             const offset = (page - 1) * itemsPerPage;
             const query = buildQuery();
 
@@ -155,23 +183,27 @@ const EnhancedArticlesList = ({ initialArticles = [], totalCount = 0 }) => {
                 .range(offset, offset + itemsPerPage - 1);
 
             if (supabaseError) {
+                console.error('❌ Erreur Supabase:', supabaseError);
                 throw supabaseError;
             }
 
-            setArticles(data || []);
+            console.log('✅ Articles chargés:', { 
+                count: data?.length || 0, 
+                totalCount: count,
+                firstTitle: data?.[0]?.title,
+                sortApplied: sortBy
+            });
 
-            // Mettre à jour le count total si c'est la première page ou si on a de nouveaux filtres
-            if (page === 1 || count !== totalCount) {
-                // Optionnel: mettre à jour le count dans le parent
-            }
+            setArticles(data || []);
+            setActualTotalCount(count || 0);
 
         } catch (err) {
-            console.error('Erreur lors du chargement des articles:', err);
+            console.error('❌ Erreur lors du chargement des articles:', err);
             setError('Erreur lors du chargement des articles. Veuillez réessayer.');
         } finally {
             setLoading(false);
         }
-    }, [currentPage, itemsPerPage, buildQuery, totalCount]);
+    }, [currentPage, itemsPerPage, buildQuery]);
 
     // Chargement initial et lors des changements
     useEffect(() => {
@@ -203,7 +235,7 @@ const EnhancedArticlesList = ({ initialArticles = [], totalCount = 0 }) => {
     }, []);
 
     // Calcul du nombre total de pages
-    const totalPages = Math.ceil(totalCount / itemsPerPage);
+    const totalPages = Math.ceil(actualTotalCount / itemsPerPage);
 
     // Gestion des mises à jour en temps réel
     useEffect(() => {
@@ -323,7 +355,7 @@ const EnhancedArticlesList = ({ initialArticles = [], totalCount = 0 }) => {
             <PowerfulPagination
                 currentPage={currentPage}
                 totalPages={totalPages}
-                totalItems={totalCount}
+                totalItems={actualTotalCount}
                 itemsPerPage={itemsPerPage}
                 onPageChange={handlePageChange}
                 onItemsPerPageChange={handleItemsPerPageChange}
@@ -343,7 +375,7 @@ const EnhancedArticlesList = ({ initialArticles = [], totalCount = 0 }) => {
                     <PowerfulPagination
                         currentPage={currentPage}
                         totalPages={totalPages}
-                        totalItems={totalCount}
+                        totalItems={actualTotalCount}
                         itemsPerPage={itemsPerPage}
                         onPageChange={handlePageChange}
                         viewMode={viewMode}

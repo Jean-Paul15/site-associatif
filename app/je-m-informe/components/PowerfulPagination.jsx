@@ -40,6 +40,22 @@ const PowerfulPagination = ({
     const [isMobile, setIsMobile] = useState(false);
     const [isTablet, setIsTablet] = useState(false);
 
+    // Récupération des paramètres URL au montage
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const params = new URLSearchParams(window.location.search);
+            const urlSort = params.get('sort') || 'date_desc';
+            const urlDateFilter = params.get('dateFilter') || 'all';
+            const urlSearch = params.get('search') || '';
+            const urlView = params.get('view') || initialViewMode;
+            
+            setSortBy(urlSort);
+            setDateFilter(urlDateFilter);
+            setSearchTerm(urlSearch);
+            setViewMode(urlView);
+        }
+    }, [initialViewMode]);
+
     // Détection de la taille d'écran
     useEffect(() => {
         const checkScreenSize = () => {
